@@ -26,16 +26,17 @@ http.get("http://api.qualitypoetry.com/create/poem?author=" + author + "&mood=" 
 
   var tweetContent = ''
   var lineText = ''
+  var lineStyle = ''
 
   for (var i = 0; i < lines.length; ++i) {
     lineText = lines[i].text
-    lineStyle = (lines[i].hasOwnProperty('style')) ? lines[i].style : ''
+    lineStyle = (lines[i].style) ? lines[i].style : ''
 
-    if (lineStyle && lineStyle === 'parentheses') {
+    if (lineStyle === 'parentheses') {
       lineText = '(' + lineText + ')'
     }
 
-    if (lineStyle && lineStyle === 'quotation') {
+    if (lineStyle === 'quotation') {
       lineText = '"' + lineText + '"'
     }
 
