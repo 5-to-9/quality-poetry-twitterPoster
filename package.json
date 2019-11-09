@@ -1,0 +1,23 @@
+{
+  "name": "quality-poetry-twitterposter",
+  "version": "1.0.0",
+  "description": "reads poems, tweets tweets",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/5-to-9/quality-poetry-twitterPoster.git"
+  },
+  "author": "Dan Siegel @ 5to9",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/5-to-9/quality-poetry-twitterPoster/issues"
+  },
+  "homepage": "https://github.com/5-to-9/quality-poetry-twitterPoster#readme",
+  "dependencies": {
+    "http": "0.0.0",
+    "twitter": "^1.7.1"
+  }
+}
