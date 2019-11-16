@@ -26,6 +26,7 @@ http.get("http://api.qualitypoetry.com/create/poem?author=" + author + "&mood=" 
 
   var tweetContent = ''
   var lineText = ''
+  var titleContent = ''
   var lineStyle = ''
 
   for (var i = 0; i < lines.length; ++i) {
@@ -44,8 +45,21 @@ http.get("http://api.qualitypoetry.com/create/poem?author=" + author + "&mood=" 
   }
 
   client.post('statuses/update', {status: tweetContent})
-		.then(function (tweet) {
+    .then(function (tweet) {
       console.log(tweet)
+
+      // use id_str instead of id - #justJSONthings
+      var newTweetId = tweet.id_str
+
+      // posting a reply requires mentioning the original tweet's poster
+      titleContent = 'I call this poem "' + title + '". For more, please follow @QualityPoetry.'
+      client.post('statuses/update', {status: titleContent, in_reply_to_status_id: newTweetId})
+  	    .then(function (tweet) {
+          console.log(tweet)
+  	    })
+  	    .catch(function (error) {
+  	    	throw error
+  	    })
     })
     .catch(function (error) {
       throw error
