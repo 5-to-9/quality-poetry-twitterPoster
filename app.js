@@ -4,13 +4,7 @@ var config = require('./config.js')
 
 var client = new Twitter(config)
 
-var authors = ['default', 'rupiKaur', 'tumblrPoet']
-var author = authors[Math.floor(Math.random() * authors.length)]
-
-var moods = ['basic', 'love', 'angst']
-var mood = moods[Math.floor(Math.random() * moods.length)]
-
-http.get("http://api.qualitypoetry.com/create/poem?author=" + author + "&mood=" + mood, function(res) {
+http.get("http://api.qualitypoetry.com/v2/create/poem", function(res) {
   var rawResponse = ''
 
   res.on('data', function (chunk) {
@@ -30,18 +24,7 @@ http.get("http://api.qualitypoetry.com/create/poem?author=" + author + "&mood=" 
   var lineStyle = ''
 
   for (var i = 0; i < lines.length; ++i) {
-    lineText = lines[i].text
-    lineStyle = (lines[i].style) ? lines[i].style : ''
-
-    if (lineStyle === 'parentheses') {
-      lineText = '(' + lineText + ')'
-    }
-
-    if (lineStyle === 'quotation') {
-      lineText = '"' + lineText + '"'
-    }
-
-    tweetContent += lineText + '\r\n'
+    tweetContent += lines[i] + '\r\n'
   }
 
   client.post('statuses/update', {status: tweetContent})
@@ -51,13 +34,8 @@ http.get("http://api.qualitypoetry.com/create/poem?author=" + author + "&mood=" 
       // use id_str instead of id - #justJSONthings
       var newTweetId = tweet.id_str
 
-      var moodHashtag = '#' + mood
-      if (mood === 'basic') {
-        moodHashtag = ''
-      }
-
       // posting a reply requires mentioning the original tweet's poster
-      titleContent = 'I call this poem "' + title + '". For more, please follow @QualityPoetry #poetry ' + moodHashtag
+      titleContent = 'I call this poem "' + title + '". For more, please follow @QualityPoetry #poems #poetry'
       client.post('statuses/update', {status: titleContent, in_reply_to_status_id: newTweetId})
   	    .then(function (tweet) {
           // console.log(tweet) // use for debugging
